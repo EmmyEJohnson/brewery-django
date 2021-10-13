@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Brewery Home</h1>
+<div class="home__favorites">
+	{% for favorite in favorites %}
+
+	<div class="favorite mb-5">
+		<h3 class="title is-3 has-text-success">{{favorite.title}}</h3>
+		<hr />
+
+		{% for beer in favorite.beers.all %}
+
+		<div class="beer">
+			<span>{{forloop.counter}}</span>
+			<span><b>{{beer.title}}</b></span>
+			<span>{{beer.get_length}}</span>
+			<span>
+				<!--   Here we are creating an anchor tag that when clicked will hit our new route and send a query to remove the beer     -->
+				<a
+					href="{% url 'favorite_beer_assoc' favorite.pk beer.pk %}?assoc=remove"
+					class="button is-danger is-outlined"
+				>
+					<span class="icon is-small">
+						<i class="fas fa-times"></i>
+					</span>
+				</a>
+			</span>
+		</div>
+
+		{% endfor %}
+	</div>
+
+	{% endfor %}
+</div>
+
+{% endblock %}
